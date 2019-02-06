@@ -11,7 +11,7 @@ global pd
 def main():
 
     df1=pd.read_excel('ParccMathDistribGrade6.xlsx')[['SchZip','Code','Latitude','Longitude','MetExceed']].dropna() #School Data aka GapSchool
-    df1.MetExceed=df1.iloc[:,4].map(lambda x: 100-x)#since we only have MetExceed percentage, we want fail percent. change the last column to fail percent
+    df1.MetExceed=df1.MetExceed.map(lambda x: 100-x)#since we only have MetExceed percentage, we want fail percent. change the last column to fail percent
     df1.rename(columns={'MetExceed':'MathScoreFailPercent'},inplace=True)#change the columns name from MetExceed to MathScoreFailPercent
     df1.SchZip=df1.SchZip.apply(str).map(lambda x:x[:5])#since the zip data is not clean, some zip code includes sub zip code, get pervious 5 digits.
     df1.rename(columns={'SchZip':'Zip'},inplace=True)#Change the name from 'SchZip' to 'Zip' in order to combine multiple DataFrame in Future
